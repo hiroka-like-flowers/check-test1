@@ -1,0 +1,35 @@
+.form__back {
+    max-width: 1230px;
+    margin: 0 auto;
+}
+
+.form__back-title {
+    color: whitesmoke;
+    font-size: 50px;
+}
+
+.thanks__content {
+    max-width: 1230px;
+    margin: 0 auto;
+    padding: 30px 15px;
+}
+
+.thanks__heading {
+    text-align: center;
+}
+
+.form__button {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.form__button-submit {
+    padding: 10px;
+    width: 40px;
+    height: 50px;
+    border: none;
+    border-radius: 3px;
+    background: rosybrown;
+    color: #fff;
+    cursor: pointer;
+}

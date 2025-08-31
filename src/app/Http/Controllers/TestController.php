@@ -4,33 +4,55 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Http\TestRequest;
+use App\Models\Author;
+use App\Models\Category;
+use App\Models\Test;
+use App\models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Contact;
 
 
 class TestController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $categories = Category::all();
+        return view('index', compact('categories'));
     }
-    public function confirm(Request $request)
+    public function confirm(TestRequest $request)
     {
-        $contact = $request->only([/* あとで入力 フォーム入力ページ参照　　　*/]);
-        return view('confirm', compact('contact'));
-    }/* フォーム入力ページの送信ボタンを押した時の処理 */
-    public function store(Request $request)
+        $contact = $request->only(['last_name', 'first_name', 'gender', 'email', 'tel', 'address', 'building', 'category_id',  'detail']);
+        $category = Category::find($contact['category_id']);
+        return view('confirm', compact('contact', 'category'));
+    }
+    public function store(TestRequest $request)
     {
-        $contact = $request->only([/* あとで入力
-       */]);
-        Contact::create($contact);
+        $contact = $request->only(['fullname' => $request->last_name . $request->first_name] + $request->only(['gender', 'email', 'tel', 'address', 'building', 'detail']));
+        Test::create($contact);
         return view('thanks');
-    }/* 入力内容確認ページの送信ボタンを押した時の処理 */
-    public function thanks()
-    {
-        /* お問い合わせ完了のメッセージを入れる */
-        return view('index')
     }
+    public function show(Request $request)
+    {
+        $contact = Contact::with($contact['contact_id']);
+        $category = Category::with($contact['category_id']);
+        return view('admin', compact('contact', 'category'));
+    }
+
+    public function register(Request $request)
+    {
+        $contact = $request->all('fullname', 'email', 'password');
+        $users = User::find($contact['user_id']);
+        return redirect('register', compact('contact', 'users'));
+    }
+
+    public function login(Request $request)
+    {
+        $contact = $users->only('email','password');
+        return view('login');
+    }
+
+
 }
 
 

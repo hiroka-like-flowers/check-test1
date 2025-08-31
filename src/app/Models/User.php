@@ -42,3 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 }
+class User
+{
+    const STATUS = [
+        1 => '本会員',
+        2 => 'VIP会員',
+    ];
+}
+
+

@@ -3,11 +3,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 
 
 
 
-/*
+/*  
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -17,17 +20,17 @@ use App\Http\Controllers\TestController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [TestController::class, 'index']);/* トップページへのアクセス時に */
-Route::post('/contact/confirm', [TestController::class, 'confirm']);
-/*　　入力された内容を確認画面に渡す処理 */
-Route::post('/contact/store', [TestController::class, 'store']);
-/* 確認画面からの保存処理を担うルート */
-Route::get('/thanks', [TestController::class, 'thanks']);
-/* 保存処理が成功した後の完了画面の表示 */
-
-
-/* Route::get('/show/{id})', [::class, 'show']);
-ID,を指定して、特定のお問い合わせ内容を表示するページ
-あとでControllerを指定する */
+Route::get('/', [TestController::class, 'index']);
+Route::post('/confirm', [TestController::class, 'confirm']);
+Route::post('/thanks', [TestController::class, 'store']);
+Route::get('register', [RegisterController::class, 'shoeRegistrationForm'])->name('register');
+Route::post('register',[Register::class, 'register']);
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LogoutController::class< 'logout'])->name('logout');
+Route::Group(['prefix' => 'contact','middleware' => 'auth'],function(){
+    Route::get('register','ContactFormController@index')->name('contact.register');
+    Route::get('create','ContactFormController@create')->name('contact.create');
+});
 
 
