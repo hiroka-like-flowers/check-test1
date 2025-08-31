@@ -1,6 +1,8 @@
 # アプリケーション名:check-test1
 
 docker-compose up -d --build
+git@github.com:hiroka-like-flowers/check-test1.git
+future/
 
 
 ## 環境構築
