@@ -21,7 +21,7 @@ feature/createにコミット
 ## 使用技術(実行環境)
 - laravel 8.x local
 - mysql:8.0.26
-- php:8.2-fpm-bookworm
+- php:8.2-fpm
 
 ## ER図
 check-test1.dio
