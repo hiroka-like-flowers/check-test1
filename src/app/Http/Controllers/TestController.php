@@ -4,10 +4,10 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\TestRequest;
+use App\Http\Requests\TestRequest;
 use App\Models\Author;
 use App\Models\Category;
-use App\Models\Test;
+use App\Models\Contact;
 use App\models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -22,14 +22,40 @@ class TestController extends Controller
     }
     public function confirm(TestRequest $request)
     {
-        $contact = $request->only(['last_name', 'first_name', 'gender', 'email', 'tel', 'address', 'building', 'category_id',  'detail']);
-        $category = Category::find($contact['category_id']);
+        $contact = $request->only([
+            'last_name',
+            'first_name',
+            'gender',
+            'email',
+            'tel1',
+            'tel2',
+            'tel3',
+            'address',
+            'building',
+            'category_id',
+            'detail'
+        ]);
+        $category = Category::find($contact['category_id'] ?? null);
         return view('confirm', compact('contact', 'category'));
     }
     public function store(TestRequest $request)
     {
-        $contact = $request->only(['fullname' => $request->last_name . $request->first_name] + $request->only(['gender', 'email', 'tel', 'address', 'building', 'detail']));
-        Test::create($contact);
+        $contactData = $request->only([
+            'last_name',
+            'first_name',
+            'gender',
+            'email',
+            'tel1',
+            'tel2',
+            'tel3',
+            'address',
+            'building',
+            'category_id',
+            'detail'
+        ]);
+        $contactData['tel'] = $contactData['tel1'] . '-' . $contactData['tel2'] . '-' . $contactData['tel3'];
+        unset($contactData['tel1'], $contactData['tel2'], $contactData['tel3']);
+        Contact::create($contactData);
         return view('thanks');
     }
     public function show(Request $request)

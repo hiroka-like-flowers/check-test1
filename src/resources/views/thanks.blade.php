@@ -10,9 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/thanks.css') }}" />
 </head>
 <body>
-    <h2>sakura</h2>
-    <form class ="form" action="/" method="post">
-        @csrf
+    <form class ="form" action="/" method="GET">
         <div class="form__back">
             <span class="form__back-title">Thank you</span>
         </div>
