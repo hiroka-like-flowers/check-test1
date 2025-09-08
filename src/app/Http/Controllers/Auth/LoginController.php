@@ -8,15 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    @return \Illuminate\View\view
 
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    @param \Illuminate\Http\Request $request
-    @return \Illuminate\Http\RedirectResponse
 
     public function login(Request $request)
     {
@@ -25,15 +22,15 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
+        if (Auth::attempt($credentials,)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('admin');
+            return redirect('/admin');
         }
 
         return back()->withErrors([
             'email' => 'ログイン情報が正しくありません。'
-        ])->onlyInput('email');
+        ]);
 
     }
 

@@ -4,13 +4,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\CategoryController;
 
 
 
-
-/*  
+/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -23,14 +23,12 @@ use App\Http\Controllers\LogoutController;
 Route::get('/', [TestController::class, 'index']);
 Route::post('/confirm', [TestController::class, 'confirm']);
 Route::post('/thanks', [TestController::class, 'store']);
-Route::get('register', [RegisterController::class, 'shoeRegistrationForm'])->name('register');
-Route::post('register',[Register::class, 'register']);
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LogoutController::class< 'logout'])->name('logout');
-Route::Group(['prefix' => 'contact','middleware' => 'auth'],function(){
-    Route::get('register','ContactFormController@index')->name('contact.register');
-    Route::get('create','ContactFormController@create')->name('contact.create');
-});
-
+Route::get('/register', [RegisterController::class, 'create'])->name('register.create');
+Route::post('/register',[RegisterController::class, 'store'])->name('register.store');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->middleware('auth');
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 

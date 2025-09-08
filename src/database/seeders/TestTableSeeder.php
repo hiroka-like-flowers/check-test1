@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class TestTableSeeder extends Seeder
 {
@@ -12,14 +13,10 @@ class TestTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        Test::factory()->(7)->create();
-    }
 
     public function run(): void
     {
-        User::factory(10)->create();
+        User::factory(35)->create();
     $this->call([
         CategoriesTableSeeder::class,
     ]);

@@ -13,7 +13,7 @@
     <div class="contacts-form__heading">
         <h2>Contact</h2>
     </div>
-    <form class="form" action="/confirm" method="post">
+    <form class="form" action="/confirm" method="POST">
         @csrf
         <div class="form__group">
             <div class="form__group-title">
@@ -44,13 +44,13 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input-text-a">
-                    <input type="radio" name="gender" value="{{ old('gender1') }}" />男性
+                    <input type="radio" name="gender" value= "1" {{ old('gender') == '1' ? 'checked' : '' }}>男性
                 </div>
                 <div class="form__input-text-b">
-                    <input type="radio" name="gender" value="{{ old('gender2') }}" />女性
+                    <input type="radio" name="gender" value= "2" {{ old('gender') == '2' ? 'checked' : '' }}>女性
                 </div>
                 <div class="form__input-text-c">
-                    <input type="radio" name="gender" value="{{ old('gender3') }}" />その他
+                    <input type="radio" name="gender" value= "3" {{ old('gender') == '3' ? 'checked' : '' }}>その他
                 </div>
                 <div class="form__error">
                     @error('gender')
@@ -139,8 +139,8 @@
                 <div class="form__input-text-i">
                     <select name="category_id">
                         <option selected>選択してください</option>
-                        @foreach(categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->Test }}</option>
+                        @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -158,7 +158,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input-textarea">
-                    <input type="textarea" name="detail" placeholder="お問い合わせ内容をご記載してください" value="{{ old('detail') }}">
+                    <textarea name="detail" placeholder="お問い合わせ内容をご記載してください">{{ old('detail') }}</textarea>
                 </div>
                 <div class="form__error">
                     @error('detail')

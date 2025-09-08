@@ -5,33 +5,30 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
     public function create()
     {
-        return view('contact.login');
+        return view('auth.register');
     }
 
     public function store(Request $request)
     {
-        $user = new Register;
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|confirmed',
+        ]);
 
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = $request->input('password');
-
-        $contact->save();
-
-        return redirect('register');
-    }
-
-    public function index()
-    {
-        $contacts =  DB::table('contact_forms')->select('id','your_name')->get();
-        dd($contacts);
-
-        return view('contact.register',compact('contacts'));
+        \App\Models\User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+        ]);
+        return redirect('/login');
     }
 
 }

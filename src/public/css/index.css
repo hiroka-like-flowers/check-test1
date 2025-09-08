@@ -82,7 +82,8 @@
     text-align: right;
 }
 
-.form__input-text-i input {
+.form__input-text-i input,
+.form__input-text-i select {
     padding: 10px;
     width: 350px;
     border: 1px solid #F5F5F5;
@@ -102,7 +103,7 @@
 }
 
 
-.form__input-textarea input {
+.form__input-textarea textarea {
     border: none;
     padding: 50px;
     width: 600px;
